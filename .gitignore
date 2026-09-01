@@ -1,0 +1,17 @@
+# Organizer-provided task data and everything derived from it (post texts,
+# labels, caches, model outputs). NTCIR shared-task data is distributed to
+# registered participants only — never commit it.
+data/
+realtime/
+results/
+models/
+submissions/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# LaTeX / local artifacts
+*.log
+*.aux
