@@ -21,9 +21,11 @@ import json
 import math
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 
-HERE = Path(__file__).parent
+HERE = PROJECT_ROOT
 DATA = HERE / "data"
 COLLECTION = HERE / "realtime" / "data" / "FinArg3_Social_Media_Post_Ranking_2100_Collection.json"
 CUTOFF = "2026-07-24"

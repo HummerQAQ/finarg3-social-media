@@ -8,12 +8,14 @@ is BCEWithLogits(s(a) - s(b), label), which is antisymmetric by construction
 both posts in the eval fold.
 
 Usage:
-  python train_encoder.py --model hfl/chinese-macbert-base --epochs 4
+  python -m finarg3_sm.training.train_encoder --model hfl/chinese-macbert-base --epochs 4
 """
 import argparse
 import json
 import random
 from pathlib import Path
+
+from finarg3_sm.paths import PROJECT_ROOT
 
 import numpy as np
 import torch
@@ -21,7 +23,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoModel, AutoTokenizer
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 N_FOLDS = 5
 
 
@@ -210,7 +212,7 @@ def run_final(posts, pairs, args, device):
                    encoding="utf-8")
     print("saved:", out.name)
     if args.save_model:
-        ckpt = Path(__file__).parent / "models" / f"final_{args.tag or 'enc'}_s{args.seed}"
+        ckpt = PROJECT_ROOT / "models" / f"final_{args.tag or 'enc'}_s{args.seed}"
         ckpt.mkdir(parents=True, exist_ok=True)
         model.encoder.save_pretrained(ckpt)
         tokenizer.save_pretrained(ckpt)

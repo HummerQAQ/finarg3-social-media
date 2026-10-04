@@ -5,7 +5,7 @@ Reads the raw organizer files, cleans and deduplicates posts, constructs
 pairwise training examples, and assigns grouped CV folds so that every
 duplicate/near-duplicate post always lands in the same fold.
 
-Outputs (under finarg3_sm/data/):
+Outputs (under project-root data/):
   posts_clean.json   - unique labeled posts: {pid, text, mpp, ml}
   pairs_train.json   - constructed pairs: {a_pid, b_pid, label, dmpp, fold}
   test_pairs.json    - normalized test pairs: {index, post1, post2}
@@ -16,11 +16,10 @@ import re
 import unicodedata
 from pathlib import Path
 
-RAW_DIR = Path(r"C:\Users\Hummer\Downloads")
-OUT_DIR = Path(__file__).parent / "data"
+from finarg3_sm.paths import PROJECT_ROOT, required_input_path
 
-POSTS_FILE = RAW_DIR / "Social_Media_Posts_with_MPP_ML.json"
-TEST_FILE = RAW_DIR / "Social_Media_Pairwise_Test_with_translation.json"
+OUT_DIR = PROJECT_ROOT / "data"
+
 
 N_FOLDS = 5
 # pairs whose MPP gap is below this are too noisy to teach anything
@@ -34,7 +33,10 @@ def normalize(text: str) -> str:
 
 
 def load_clean_posts():
-    raw = json.loads(POSTS_FILE.read_text(encoding="utf-8"))
+    raw = json.loads(
+        (required_input_path("FINARG3_RAW_DIR") /
+         "Social_Media_Posts_with_MPP_ML.json").read_text(encoding="utf-8")
+    )
     by_text = {}
     for p in raw:
         text = normalize(p["post_rationale"])
@@ -91,7 +93,10 @@ def build_pairs(posts):
 
 
 def load_test():
-    raw = json.loads(TEST_FILE.read_text(encoding="utf-8"))
+    raw = json.loads(
+        (required_input_path("FINARG3_RAW_DIR") /
+         "Social_Media_Pairwise_Test_with_translation.json").read_text(encoding="utf-8")
+    )
     return [
         {
             "index": t["index"],

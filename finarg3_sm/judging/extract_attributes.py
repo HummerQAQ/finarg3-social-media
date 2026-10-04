@@ -10,7 +10,7 @@ Pointwise design: one call per unique post, fully cached, reusable verbatim
 for the real-time evaluation week.
 
 Usage:
-  python extract_attributes.py --model gpt-5-mini
+  python -m finarg3_sm.judging.extract_attributes --model gpt-5-mini
 """
 import argparse
 import hashlib
@@ -20,9 +20,11 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 from openai import OpenAI
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 CACHE_FILE = DATA / "attr_cache.json"
 MAX_POST_CHARS = 900
 

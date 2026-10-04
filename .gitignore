@@ -15,3 +15,9 @@ __pycache__/
 # LaTeX / local artifacts
 *.log
 *.aux
+
+# Local secrets, desktop metadata, and generated judge variant
+.env
+.env.*
+.DS_Store
+finarg3_sm/judging/llm_judge_v3sa.py

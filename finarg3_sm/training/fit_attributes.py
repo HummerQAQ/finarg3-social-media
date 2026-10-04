@@ -6,21 +6,23 @@ grouped 5-fold CV protocol. Compares:
   C) attributes + lexicon features + char TF-IDF
 and shows learned attribute weights for interpretability.
 
-Usage: python fit_attributes.py --attrs data/attrs_gpt-5-mini.json
+Usage: python -m finarg3_sm.training.fit_attributes --attrs data/attrs_gpt-5-mini.json
 """
 import argparse
 import json
 from pathlib import Path
+
+from finarg3_sm.paths import PROJECT_ROOT
 
 import numpy as np
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-from extract_attributes import FIELDS, NARRATIVES
-from features import feature_vector
+from finarg3_sm.judging.extract_attributes import FIELDS, NARRATIVES
+from finarg3_sm.preprocessing.features import feature_vector
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 ATTR_NAMES = list(FIELDS.keys()) + [f"nar_{n}" for n in NARRATIVES]
 
 

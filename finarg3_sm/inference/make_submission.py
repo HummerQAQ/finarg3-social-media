@@ -8,22 +8,23 @@ Run 3: majority vote of LR + encoder + attribute model           (judge-free, CV
 Each run is written as a copy of the ORIGINAL organizer test file with the
 required "prediction": "Post 1" / "Post 2" key added per instance.
 
-Usage: python make_submission.py
+Usage: python -m finarg3_sm.inference.make_submission
 """
 import json
 from pathlib import Path
+
+from finarg3_sm.paths import PROJECT_ROOT, required_input_path
 
 import numpy as np
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-from features import feature_vector
-from fit_attributes import attr_vec
+from finarg3_sm.preprocessing.features import feature_vector
+from finarg3_sm.training.fit_attributes import attr_vec
 
-HERE = Path(__file__).parent
+HERE = PROJECT_ROOT
 DATA = HERE / "data"
-ORIG_TEST = Path(r"C:\Users\Hummer\Downloads\Social_Media_Pairwise_Test_with_translation.json")
 JUDGE_TEST = DATA / "judge_test_gpt-5-mini_v3.json"
 ATTRS_FILE = DATA / "attrs_v2_gpt-5-mini.json"
 OUT = HERE / "submissions"
@@ -112,7 +113,7 @@ def main():
     posts = json.loads((DATA / "posts_clean.json").read_text(encoding="utf-8"))
     pairs = json.loads((DATA / "pairs_train.json").read_text(encoding="utf-8"))
     test = json.loads((DATA / "test_pairs.json").read_text(encoding="utf-8"))
-    orig = json.loads(ORIG_TEST.read_text(encoding="utf-8"))
+    orig = json.loads(required_input_path("FINARG3_ORIGINAL_TEST").read_text(encoding="utf-8"))
 
     p_lr = lr_test_probs(posts, pairs, test)
     p_enc = encoder_test_probs(test)

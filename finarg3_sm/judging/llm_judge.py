@@ -8,12 +8,12 @@ Design:
   - Every pair is judged in BOTH orderings; probabilities are averaged, which
     cancels position bias.
   - Optional multi-vote self-consistency (--votes N).
-  - All API responses cached on disk; reruns are free.
+  - API responses cached on disk; complete cache hits avoid new calls.
 
 Usage:
   set OPENAI_API_KEY=sk-...
-  python llm_judge.py --mode cv --model gpt-5-mini --sample 30
-  python llm_judge.py --mode test --model gpt-5-mini
+  python -m finarg3_sm.judging.llm_judge --mode cv --model gpt-5-mini --sample 30
+  python -m finarg3_sm.judging.llm_judge --mode test --model gpt-5-mini
 """
 import argparse
 import hashlib
@@ -25,9 +25,11 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 from openai import OpenAI
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 CACHE_FILE = DATA / "llm_cache.json"
 N_FOLDS = 5
 MAX_POST_CHARS = 800

@@ -8,11 +8,13 @@ MPP ranking task from the adapted weights. Also fixes the length-distribution
 gap: FinArg-2 posts are short (median 54 chars) like our test posts.
 
 Output: models/macbert_dur/  (base encoder + tokenizer, loadable via
-train_encoder.py --model models/macbert_dur)
+python -m finarg3_sm.training.train_encoder --model models/macbert_dur)
 """
 import json
 import random
 from pathlib import Path
+
+from finarg3_sm.paths import PROJECT_ROOT, required_input_path
 
 import numpy as np
 import torch
@@ -20,8 +22,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-EXT = Path(r"C:\Users\Hummer\Desktop\NTCIR19\external_data")
-OUT = Path(__file__).parent / "models" / "macbert_dur"
+OUT = PROJECT_ROOT / "models" / "macbert_dur"
 MODEL = "hfl/chinese-macbert-base"
 LABELS = {"Within 1 week": 0, "Longer than 1 week": 1, "Unsure": 2}
 MAX_LEN, BATCH, EPOCHS, LR, SEED = 192, 32, 2, 2e-5, 42
@@ -42,7 +43,7 @@ class DurDataset(Dataset):
 def main():
     random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
     device = "cuda"
-    sm = EXT / "FinArg-2" / "Social Media"
+    sm = required_input_path("FINARG_EXTERNAL_DATA_DIR") / "FinArg-2" / "Social Media"
     train = json.loads((sm / "IDED_Train.json").read_text(encoding="utf-8"))
     dev = json.loads((sm / "IDED_Dev.json").read_text(encoding="utf-8"))
     # test_ans is additional labeled data — fold it into training

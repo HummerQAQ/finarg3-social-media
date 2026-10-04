@@ -28,13 +28,14 @@ import sys
 import time
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 import pandas as pd
 from scipy.stats import kendalltau, spearmanr
 
-HERE = Path(__file__).parent
-sys.path.insert(0, str(HERE))
-from collection_sample import CUTOFF, COLLECTION, DATA, build_rows, daily_vol, load_prices  # noqa: E402
+HERE = PROJECT_ROOT
+from finarg3_sm.analysis.collection_sample import CUTOFF, COLLECTION, DATA, build_rows, daily_vol, load_prices  # noqa: E402
 
 OUT = HERE / "results" / "exante_capacity"
 CACHE = DATA / "price_history_2026_adjclose.json"

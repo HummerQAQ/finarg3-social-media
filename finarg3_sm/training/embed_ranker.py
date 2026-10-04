@@ -7,19 +7,21 @@ and the contrastive-pretrained embedding space is architecturally unrelated to
 MacBERT (MLM), so errors should decorrelate from the encoder track.
 
 Usage:
-  python embed_ranker.py --model intfloat/multilingual-e5-large
-  python embed_ranker.py --model BAAI/bge-m3
+  python -m finarg3_sm.training.embed_ranker --model intfloat/multilingual-e5-large
+  python -m finarg3_sm.training.embed_ranker --model BAAI/bge-m3
 """
 import argparse
 import json
 from pathlib import Path
+
+from finarg3_sm.paths import PROJECT_ROOT
 
 import numpy as np
 import torch
 from sklearn.linear_model import LogisticRegression
 from transformers import AutoModel, AutoTokenizer
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 N_FOLDS = 5
 
 

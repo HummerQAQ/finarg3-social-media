@@ -8,14 +8,16 @@ higher MPP. Both orderings of every pair are included (antisymmetric model).
 import json
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 from scipy import sparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-from features import FEATURE_NAMES, feature_vector
+from finarg3_sm.preprocessing.features import FEATURE_NAMES, feature_vector
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 N_FOLDS = 5
 
 
