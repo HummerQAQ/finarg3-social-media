@@ -14,9 +14,11 @@ import math
 import time
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import yfinance as yf
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 OUT = DATA / "price_cache_ohlc.json"
 
 ext = json.loads((DATA / "ranking_extract.json").read_text(encoding="utf-8"))

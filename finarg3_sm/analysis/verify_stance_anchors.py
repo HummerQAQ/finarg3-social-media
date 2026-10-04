@@ -28,9 +28,11 @@ Evidence is written to data/stance_anchors.json.
 import json
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import yfinance as yf
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 
 ANCHORS = [
     {

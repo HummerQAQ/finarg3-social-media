@@ -10,7 +10,7 @@ other rule, and all runtime parameters are identical.
 Every replacement asserts exactly one occurrence, so any drift in the source
 file fails loudly instead of silently producing a wrong variant.
 
-Usage:  python make_v3sa.py     (writes llm_judge_v3sa.py next to llm_judge.py)
+Usage:  python -m finarg3_sm.judging.make_v3sa     (writes llm_judge_v3sa.py next to llm_judge.py)
 """
 from pathlib import Path
 

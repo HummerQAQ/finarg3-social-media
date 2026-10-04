@@ -14,10 +14,12 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 from openai import OpenAI
 
-DATA = Path(__file__).parent / "data"
-COLLECTION = Path(__file__).parent / "realtime" / "data" / "FinArg3_Social_Media_Post_Ranking_2100_Collection.json"
+DATA = PROJECT_ROOT / "data"
+COLLECTION = PROJECT_ROOT / "realtime" / "data" / "FinArg3_Social_Media_Post_Ranking_2100_Collection.json"
 CACHE_FILE = DATA / "ranking_cache.json"
 
 SYSTEM_PROMPT = """你是台股資深交易員。你會看到一篇 2026 年 7 月的台股社群貼文,請萃取以下欄位（JSON）：

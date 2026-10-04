@@ -9,6 +9,8 @@ does not substitute proxy gaps into the development curve.
 import json
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import matplotlib
 matplotlib.use("Agg")
 matplotlib.rcParams["pdf.fonttype"] = 42
@@ -17,7 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
 
-HERE = Path(__file__).parent
+HERE = PROJECT_ROOT
 fit = json.loads((HERE / "data" / "reliability_fit.json").read_text(encoding="utf-8"))
 s = fit["s_hat"]
 

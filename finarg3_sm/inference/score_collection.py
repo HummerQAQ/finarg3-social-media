@@ -11,6 +11,8 @@ import re
 import unicodedata
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 import torch
 from scipy import sparse
@@ -18,11 +20,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from transformers import AutoModel, AutoTokenizer
 
-sys.path.insert(0, str(Path(__file__).parent))
-from features import feature_vector
-from predict_realtime import Scorer, normalize
+from finarg3_sm.preprocessing.features import feature_vector
+from finarg3_sm.inference.predict_realtime import Scorer, normalize
 
-HERE = Path(__file__).parent
+HERE = PROJECT_ROOT
 DATA = HERE / "data"
 COLLECTION = HERE / "realtime" / "data" / "FinArg3_Social_Media_Post_Ranking_2100_Collection.json"
 

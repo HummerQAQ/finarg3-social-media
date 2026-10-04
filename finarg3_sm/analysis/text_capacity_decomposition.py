@@ -25,14 +25,15 @@ Decision rule for "incremental text signal", fixed before results:
 import sys
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
 
-HERE = Path(__file__).parent
-sys.path.insert(0, str(HERE))
-from collection_sample import build_rows                      # noqa: E402
-from exante_capacity import (B_CORR, B_PAIR, SEED, _rank,     # noqa: E402
+HERE = PROJECT_ROOT
+from finarg3_sm.analysis.collection_sample import build_rows                      # noqa: E402
+from finarg3_sm.analysis.exante_capacity import (B_CORR, B_PAIR, SEED, _rank,     # noqa: E402
                              cluster_boot, concordance)
 
 OUT = HERE / "results" / "exante_capacity"

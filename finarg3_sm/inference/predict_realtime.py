@@ -7,7 +7,7 @@ three frozen tracks) with graceful degradation:
   - API unreachable / --no-api          -> pure local blend for all pairs
 
 Usage:
-  python predict_realtime.py --input day1_pairs.json
+  python -m finarg3_sm.inference.predict_realtime --input day1_pairs.json
   # output: day1_pairs.predictions.json + day1_pairs.audit.json
 """
 import argparse
@@ -17,6 +17,8 @@ import unicodedata
 import re
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 import torch
 from scipy import sparse
@@ -24,11 +26,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from transformers import AutoModel, AutoTokenizer
 
-sys.path.insert(0, str(Path(__file__).parent))
-from features import feature_vector
-import llm_judge
+from finarg3_sm.preprocessing.features import feature_vector
+from finarg3_sm.judging import llm_judge
 
-HERE = Path(__file__).parent
+HERE = PROJECT_ROOT
 DATA = HERE / "data"
 CKPT_GLOB = "final_durpft_s*"
 MAX_LEN = 256

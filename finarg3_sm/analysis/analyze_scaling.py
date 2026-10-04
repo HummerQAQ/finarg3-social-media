@@ -16,12 +16,14 @@ import math
 from itertools import combinations
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 from scipy.stats import spearmanr, pearsonr, norm
 
-from collection_sample import build_rows
+from finarg3_sm.analysis.collection_sample import build_rows
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 S_FIT = 0.187  # reliability-model scale fitted in the paper
 
 rows = build_rows()

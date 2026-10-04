@@ -32,13 +32,15 @@ numbers, which were computed before the label's stance semantics were settled.
 import json
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT
+
 import numpy as np
 from numpy.linalg import lstsq
 from scipy.stats import rankdata, spearmanr, t as tdist
 
-from collection_sample import build_rows
+from finarg3_sm.analysis.collection_sample import build_rows
 
-DATA = Path(__file__).parent / "data"
+DATA = PROJECT_ROOT / "data"
 N_BOOT = 2000
 SEED = 20260822
 

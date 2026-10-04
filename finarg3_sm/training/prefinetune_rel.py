@@ -11,15 +11,16 @@ import json
 import random
 from pathlib import Path
 
+from finarg3_sm.paths import PROJECT_ROOT, required_input_path
+
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-EXT = Path(r"C:\Users\Hummer\Desktop\NTCIR19\external_data")
-INIT = Path(__file__).parent / "models" / "macbert_dur"
-OUT = Path(__file__).parent / "models" / "macbert_dur_rel"
+INIT = PROJECT_ROOT / "models" / "macbert_dur"
+OUT = PROJECT_ROOT / "models" / "macbert_dur_rel"
 MAX_LEN, BATCH, EPOCHS, LR, SEED = 256, 24, 2, 2e-5, 42
 
 
@@ -38,7 +39,7 @@ class RelDataset(Dataset):
 def main():
     random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
     device = "cuda"
-    sm = EXT / "FinArg-1" / "Social Media"
+    sm = required_input_path("FINARG_EXTERNAL_DATA_DIR") / "FinArg-1" / "Social Media"
     train = json.loads((sm / "train.json").read_text(encoding="utf-8"))
     dev = json.loads((sm / "dev.json").read_text(encoding="utf-8"))
     print(f"relation corpus: {len(train)} train / {len(dev)} dev")

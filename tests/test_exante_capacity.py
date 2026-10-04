@@ -46,7 +46,7 @@ def test_post_ids_unique():
 
 
 def test_tfe_matches_project_function():
-    from collection_sample import build_rows
+    from finarg3_sm.analysis.collection_sample import build_rows
     ref = {r["pid"]: r for r in build_rows()}
     df = _df()
     assert set(df["post_id"]) == set(ref)
